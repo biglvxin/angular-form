@@ -11,10 +11,12 @@
      <!-- first function -->
       <div>
         <label>工作流内容1: </label>
-        <button (click)="addStage()">增加stage</button>
+        <button (click)="addStage()">增加Stage</button>
         <div formArrayName="workFlowContent" class="workFlowContent">
-            <div *ngFor="let content of validateForm.get('workFlowContent')['controls'];let workFlowIndex = index;">
+            <div *ngFor="let content of workFlowContent['controls'];let workFlowIndex = index;">
                 <!-- <input type="text" [formControlName]="workFlowIndex" /> -->
+                <label>stage{{workFlowIndex}}:</label>
+                <button nz-button (click)="removeStage(workFlowIndex)">删除</button>
                 <div [formGroupName]="workFlowIndex.toString()" style="margin-bottom: 20px;">
                     <div>
                       <label>stageName: </label>
@@ -24,9 +26,37 @@
                        <label>stageType: </label>
                        <input type="text" placeholder="请输入stageType" formControlName="stageType" />
                      </div>
-                     <div formArrayName="stageContent">
+                     <div formArrayName="stageContent" class="stageContent">
+                        <label>stageContent: </label>
+                        <button nz-button (click)="addStep(workFlowIndex)">增加step</button>
                          <div *ngFor="let stage of content.get('stageContent')['controls']; let stageIndex = index;">
-                            <input type="text" [formControlName]="stageIndex.toString()" />
+                            <!-- <input type="text" [formControlName]="stageIndex.toString()" /> -->
+                            <label>workFlow:{{workFlowIndex}}--stage:{{stageIndex}}:</label>
+                            <div [formGroupName]="stageIndex.toString()" style="margin-bottom: 20px;">
+                                <button (click)="removeStep(workFlowIndex,stageIndex)">删除step</button>
+                                <div>
+                                    <label>stepName: </label>
+                                    <input type="text" placeholder="请输入stepName" formControlName="stepName" />
+                                </div>
+                                <div>
+                                    <label>stepType: </label>
+                                    <input type="text" placeholder="请输入stepType" formControlName="stepType" />
+                                </div>
+                                <div formArrayName="stepContent">
+                                    <label>stepContent:</label>
+                                   
+                                    <div *ngFor="let step of stage.get('stepContent')['controls']; let stepIndex = index">
+                                        <label>workFlow:{{workFlowIndex}}--stage:{{stageIndex}}--step: {{stepIndex}}:</label>
+                                         <input type="text" placeholder="请输入stepContent" formControlName="stepIndex.toString()">
+                                         <button nz-button (click)="removeStepContent(stage,stepIndex)">
+                                           删除StepContent
+                                         </button>
+                                    </div>
+                                    <button nz-button (click)="addStepContent(stage)">
+                                      添加StepContent
+                                    </button>
+                                </div>
+                            </div>
                          </div>
                      </div>
                 </div>
@@ -40,7 +70,7 @@
          <label>工作流内容2: </label>
          <div formArrayName="workFlowContent" class="workFlowContent">
            <div *ngFor="let content of validateForm.get('workFlowContent')['controls'];let workFlowIndex = index;">
-            
+             <label>stage{{workFlowIndex + 1}}:</label>
              <div [formGroupName]="workFlowIndex.toString()">
                   <label>stageName: </label>
                   <input type="text" placeholder="请输入stageName2" formControlName="stageName" />
