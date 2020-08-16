@@ -1,0 +1,70 @@
+
+<form [formGroup]="validateForm">
+    <div>
+        <label>工作流名称: </label>
+        <input type="text" placeholder="请输入工作流名称" formControlName="workFlowName" />
+    </div>
+     <div>
+       <label>工作流类型: </label>
+       <input type="text" placeholder="请输入工作流类型" formControlName="workFlowType" />
+     </div>
+     <!-- first function -->
+      <div>
+        <label>工作流内容1: </label>
+        <button (click)="addStage()">增加stage</button>
+        <div formArrayName="workFlowContent" class="workFlowContent">
+            <div *ngFor="let content of validateForm.get('workFlowContent')['controls'];let workFlowIndex = index;">
+                <!-- <input type="text" [formControlName]="workFlowIndex" /> -->
+                <div [formGroupName]="workFlowIndex.toString()" style="margin-bottom: 20px;">
+                    <div>
+                      <label>stageName: </label>
+                      <input type="text" placeholder="请输入stageName" formControlName="stageName" />
+                    </div>
+                     <div>
+                       <label>stageType: </label>
+                       <input type="text" placeholder="请输入stageType" formControlName="stageType" />
+                     </div>
+                     <div formArrayName="stageContent">
+                         <div *ngFor="let stage of content.get('stageContent')['controls']; let stageIndex = index;">
+                            <input type="text" [formControlName]="stageIndex.toString()" />
+                         </div>
+                     </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+       
+      </div>
+      <!-- second funtion -->
+       <!-- <div>
+         <label>工作流内容2: </label>
+         <div formArrayName="workFlowContent" class="workFlowContent">
+           <div *ngFor="let content of validateForm.get('workFlowContent')['controls'];let workFlowIndex = index;">
+            
+             <div [formGroupName]="workFlowIndex.toString()">
+                  <label>stageName: </label>
+                  <input type="text" placeholder="请输入stageName2" formControlName="stageName" />
+             </div>
+              <div [formGroupName]="workFlowIndex.toString()">
+                <label>stageType: </label>
+                <input type="text" placeholder="请输入stageName2" formControlName="stageType" />
+              </div>
+              <div [formGroupName]="workFlowIndex.toString()">
+                <div formArrayName="stageContent">
+                <div *ngFor="let stage of content.get('stageContent')['controls']; let stageIndex = index;">
+                    <input type="text" [formControlName]="stageIndex.toString()" />
+                </div>
+                </div>
+              </div>
+              
+           </div>
+         </div>
+       </div> -->
+
+     <div>
+         <label>表单的值:</label>
+         <p>{{validateForm.value | json}}</p>
+     </div>
+
+
+</form>

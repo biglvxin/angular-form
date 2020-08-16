@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { NameEditorComponent } from './name-editor/name-editor.component';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
+import { FormNestedComponent } from './form-nested/form-nested.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NameEditorComponent,
-    ProfileEditorComponent
+    ProfileEditorComponent,
+    FormNestedComponent
   ],
   imports: [
     BrowserModule,
